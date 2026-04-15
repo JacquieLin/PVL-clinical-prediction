@@ -54,11 +54,13 @@ if st.button('🔍 Predict PVL Risk'):
     # 创建特征数组
     features = np.array([[GA_total_days, NH_bin, DSH_bin, Age, DM_bin, ASALV_bin]])
     
-    # 显示调试信息
+# 显示调试信息
+    DEBUG = False
+    if DEBUG:
     st.write("模型类型:", type(model))
     st.write("输入特征features类型:", type(features))
     st.write("输入特征features内容:")
-    st.dataframe(pd.DataFrame(features, columns=feature_names))  # 将特征内容显示为表格
+    st.dataframe(pd.DataFrame(features, columns=feature_names))
 
     # 预测
     prob = model.predict_proba(features)[0, 1]  # 获取 PVL 的概率
