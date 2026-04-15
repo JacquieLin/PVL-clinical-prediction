@@ -21,14 +21,21 @@ st.write("Please enter the newborn's clinical and imaging information. The syste
 col1, col2 = st.columns(2)
 
 with col1:
-    GA = st.number_input('Gestational Age (days)', min_value=140, max_value=330, step=1)
-    BW = st.number_input('Birth Weight (kg)', min_value=0.3, max_value=6.0, step=0.01)
+    #GA = st.number_input('Gestational Age (days)', min_value=140, max_value=330, step=1)
+    st.markdown("**Gestational Age (GA)**")
+
+col_ga1, col_ga2 = st.columns(2)
+
+with col_ga1:
+    GA_weeks = st.number_input('Weeks', min_value=20, max_value=45, step=1)
+
+with col_ga2:
+    GA_days = st.number_input('Days', min_value=0, max_value=6, step=1)
     Age = st.number_input('Current Age (months)', min_value=0, max_value=24, step=1)
 
 with col2:
-    NIH = st.selectbox('Neonatal Intracranial Hemorrhage (NIH)', ['No', 'Yes'])
-    MNI = st.selectbox('Maternal or Neonatal Infection (MNI)', ['No', 'Yes'])
-    ELV = st.selectbox('Enlarged Lateral Ventricles (ELV)', ['No', 'Yes'])
+    NH = st.selectbox('Neonatal hypoglycaemia(NH)', ['No', 'Yes'])
+    DSH = st.selectbox('Definitive subventricular haemorrhage (DSH)', ['No', 'Yes'])
     DM = st.selectbox('Delayed Myelination (DM)', ['No', 'Yes'])
     ASALV = st.selectbox('Abnormal Signal Around Lateral Ventricles (ASALV)', ['No', 'Yes'])
 
@@ -36,22 +43,22 @@ with col2:
 def yes_no_to_binary(x):
     return 1 if x == 'Yes' else 0
 
-NIH_bin = yes_no_to_binary(NIH)
-MNI_bin = yes_no_to_binary(MNI)
-ELV_bin = yes_no_to_binary(ELV)
+NH_bin = yes_no_to_binary(NH)
+DSH_bin = yes_no_to_binary(DSH)
 DM_bin = yes_no_to_binary(DM)
 ASALV_bin = yes_no_to_binary(ASALV)
+GA_total_days = GA_weeks * 7 + GA_days
 
 # Prediction button
 if st.button('🔍 Predict PVL Risk'):
     # 创建特征数组
-    features = np.array([[GA, BW, NIH_bin, MNI_bin, Age, ELV_bin, DM_bin, ASALV_bin]])
+    features = np.array([[GA_total_days, NH_bin, DSH_bin, Age, DM_bin, ASALV_bin]])
     
     # 显示调试信息
-    #st.write("模型类型:", type(model))
-    #st.write("输入特征features类型:", type(features))
-    #st.write("输入特征features内容:")
-    #st.dataframe(pd.DataFrame(features, columns=feature_names))  # 将特征内容显示为表格
+    st.write("模型类型:", type(model))
+    st.write("输入特征features类型:", type(features))
+    st.write("输入特征features内容:")
+    st.dataframe(pd.DataFrame(features, columns=feature_names))  # 将特征内容显示为表格
 
     # 预测
     prob = model.predict_proba(features)[0, 1]  # 获取 PVL 的概率
