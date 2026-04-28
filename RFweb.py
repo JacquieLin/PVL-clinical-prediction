@@ -14,8 +14,8 @@ with open('feature_names.json', 'r') as f:
 
 st.set_page_config(page_title="PVL Risk Prediction", page_icon="🧠", layout="centered")
 
-st.title("🧠 PVL (Periventricular Leukomalacia) Risk Prediction System")
-st.write("Please enter the newborn's clinical and imaging information. The system will predict the risk of developing PVL.")
+st.title("🧠 White Matter Injury（WMI） Risk Prediction System")
+st.write("Please enter the newborn's clinical and imaging information. The system will predict the risk of developing WMI.")
 
 # Input features
 col1, col2 = st.columns(2)
@@ -50,7 +50,7 @@ ASALV_bin = yes_no_to_binary(ASALV)
 GA_total_days = GA_weeks * 7 + GA_days
 
 # Prediction button
-if st.button('🔍 Predict PVL Risk'):
+if st.button('🔍 Predict WMI Risk'):
     # 创建特征数组
     features = np.array([[GA_total_days, NH_bin, DSH_bin, Age, DM_bin, ASALV_bin]])
     
