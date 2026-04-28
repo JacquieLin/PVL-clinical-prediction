@@ -57,7 +57,7 @@ if st.button('🔍 Predict WMI Risk'):
 
     # 预测
     prob = model.predict_proba(features)[0, 1]  # 获取 PVL 的概率
-    st.subheader(f"🩺 Predicted Risk of Developing PVL: {prob*100:.2f}%")
+    st.subheader(f"🩺 Predicted Risk of Developing WMI: {prob*100:.2f}%")
 
     # 根据概率显示不同信息
     if prob >= 0.5:
