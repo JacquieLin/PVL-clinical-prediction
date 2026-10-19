@@ -15,7 +15,7 @@ with open('feature_names.json', 'r') as f:
 st.set_page_config(page_title="PVL Risk Prediction", page_icon="🧠", layout="centered")
 
 st.title("🧠 White Matter Injury（WMI） Risk Prediction System")
-st.write("Please enter the newborn's clinical and imaging information. The system will predict the risk of developing WMI.")
+st.write("Please enter the newborn's clinical and imaging information. The system will predict the risk of developing WMI. Clinical Use and Limitations: This tool is intended to support WMI risk estimation in infants undergoing MRI evaluation for suspected neurodevelopmental or motor abnormalities. It requires accurate interpretation of MRI findings and has not been externally validated in independent, representative populations; therefore, its performance may not generalize to asymptomatic infants or the broader pediatric population, and it should not replace clinical judgment.")
 
 # Input features
 col1, col2 = st.columns(2)
